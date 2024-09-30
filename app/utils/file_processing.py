@@ -42,7 +42,7 @@ for sent in sent_tokenized_data:
 ## Word Embedding
 # Word2Vec
 model=Word2Vec(preprocessed_data,window=5,min_count=2)
-print("\n\n\n_______All__Unique__Words________\n\n\n"model.wv.index_to_key)
+print("\n\n\n_______All__Unique__Words________\n\n\n", model.wv.index_to_key)
 print("\n\n\n_______Model__Count________\n\n\n", model.corpus_count)
 print("\n\n\n________Model__Similarity__By__Word________\n\n\n", model.wv.similar_by_word('ceo'))
 

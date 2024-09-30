@@ -6,7 +6,8 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def home():
-    return "Welcome to the Financial Analyst Assistant Portal!"
+    # return "Welcome to the Financial Analyst Assistant Portal!"
+    return render_template('index.html')
 
 @main.route('/upload')
 def upload():
