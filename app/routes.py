@@ -13,7 +13,7 @@ def home():
 
 @main.route('/upload_page')
 def upload_page():
-    return render_template('uploadtry.html')
+    return render_template('upload.html')
 
 
 @main.route('/upload', methods=['POST'])
@@ -29,7 +29,8 @@ def upload():
 
         file_path = os.path.join('uploads', file.filename)
         file.save(file_path)
-        return "File successfully save"
+
+        return f"File {file.filename} uploaded successfully"
 
 
     # return render_template('main.html', result = result)

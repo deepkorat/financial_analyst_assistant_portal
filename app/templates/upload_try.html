@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="{{ url_for('static', filename='static/')}} ">
+     <title>Upload PDF for Q&A</title>
+</head>
+
+<style>
+     @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css);
+     @import url("https://fonts.googleapis.com/css?family=Roboto");
+
+     html,
+     body,
+     * {
+          box-sizing: border-box;
+          font-size: 16px;
+     }
+
+     html,
+     body {
+          height: 100%;
+          text-align: center;
+     }
+
+     body {
+          padding: 2rem;
+          background: #f8f8f8;
+     }
+
+     h2 {
+          font-family: "Roboto", sans-serif;
+          font-size: 26px;
+          line-height: 1;
+          color: #454cad;
+          margin-bottom: 0;
+     }
+
+     p {
+          font-family: "Roboto", sans-serif;
+          font-size: 18px;
+          color: #5f6982;
+     }
+
+     .uploader {
+          display: block;
+          clear: both;
+          margin: 0 auto;
+          width: 100%;
+          max-width: 600px;
+     }
+
+     .uploader label {
+          float: left;
+          clear: both;
+          width: 100%;
+          padding: 2rem 1.5rem;
+          text-align: center;
+          background: #fff;
+          border-radius: 7px;
+          border: 3px solid #eee;
+          transition: all 0.2s ease;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+     }
+
+     .uploader label:hover {
+          border-color: #454cad;
+     }
+
+     .uploader label.hover {
+          border: 3px solid #454cad;
+          box-shadow: inset 0 0 0 6px #eee;
+     }
+
+     .uploader label.hover #start i.fa {
+          transform: scale(0.8);
+          opacity: 0.3;
+     }
+
+     .uploader #start {
+          float: left;
+          clear: both;
+          width: 100%;
+     }
+
+     .uploader #start.hidden {
+          display: none;
+     }
+
+     .uploader #start i.fa {
+          font-size: 50px;
+          margin-bottom: 1rem;
+          transition: all 0.2s ease-in-out;
+     }
+
+     .uploader #response {
+          float: left;
+          clear: both;
+          width: 100%;
+     }
+
+     .uploader #response.hidden {
+          display: none;
+     }
+
+     .uploader #response #messages {
+          margin-bottom: 0.5rem;
+     }
+
+     .uploader #file-image {
+          display: inline;
+          margin: 0 auto 0.5rem auto;
+          width: auto;
+          height: auto;
+          max-width: 180px;
+     }
+
+     .uploader #file-image.hidden {
+          display: none;
+     }
+
+     .uploader #notimage {
+          display: block;
+          float: left;
+          clear: both;
+          width: 100%;
+     }
+
+     .uploader #notimage.hidden {
+          display: none;
+     }
+
+     .uploader progress,
+     .uploader .progress {
+          display: inline;
+          clear: both;
+          margin: 0 auto;
+          width: 100%;
+          max-width: 180px;
+          height: 8px;
+          border: 0;
+          border-radius: 4px;
+          background-color: #eee;
+          overflow: hidden;
+     }
+
+     .uploader .progress[value]::-webkit-progress-bar {
+          border-radius: 4px;
+          background-color: #eee;
+     }
+
+     .uploader .progress[value]::-webkit-progress-value {
+          background: linear-gradient(to right, #393f90 0%, #454cad 50%);
+          border-radius: 4px;
+     }
+
+     .uploader .progress[value]::-moz-progress-bar {
+          background: linear-gradient(to right, #393f90 0%, #454cad 50%);
+          border-radius: 4px;
+     }
+
+     .uploader input[type=file] {
+          display: none;
+     }
+
+     .uploader div {
+          margin: 0 0 0.5rem 0;
+          color: #5f6982;
+     }
+
+     .uploader .btn {
+          display: inline-block;
+          margin: 0.5rem 0.5rem 1rem 0.5rem;
+          clear: both;
+          font-family: inherit;
+          font-weight: 700;
+          font-size: 14px;
+          text-decoration: none;
+          text-transform: initial;
+          border: none;
+          border-radius: 0.2rem;
+          outline: none;
+          padding: 0 1rem;
+          height: 36px;
+          line-height: 36px;
+          color: #fff;
+          transition: all 0.2s ease-in-out;
+          box-sizing: border-box;
+          background: #454cad;
+          border-color: #454cad;
+          cursor: pointer;
+     }
+</style>
+
+
+<style>
+     /* Your existing CSS here */
+</style>
+
+<body>
+     <h2>Upload Annual Report for Q&A</h2>
+     <br>
+     
+     <!-- Upload Form -->
+     <form id="file-upload-form" class="uploader" action="/upload" method="post" enctype="multipart/form-data">
+          <input id="file-upload" type="file" name="annual_report" accept=".pdf" />
+
+          <label for="file-upload" id="file-drag">
+               <div id="start">
+                    <i class="fa fa-download" aria-hidden="true"></i>
+                    <div>Select a PDF file or drag it here</div>
+                    <div id="notpdf" class="hidden">Please select a PDF</div>
+                    <span id="file-upload-btn" class="btn btn-primary">Select a file</span>
+                    <br>
+                    <button type="submit" class="btn">Upload</button>
+               </div>
+               <div id="response" class="hidden">
+                    <div id="messages"></div>
+                    <progress class="progress" id="file-progress" value="0">
+                         <span>0</span>%
+                    </progress>
+               </div>
+          </label>
+     </form>
+
+
+<script>
+  function ekUpload() {
+    function Init() {
+        console.log("Upload Initialised");
+
+        // Get file input and drag-drop area
+        var fileSelect = document.getElementById("file-upload"),
+            fileDrag = document.getElementById("file-drag");
+
+        // Add event listener for file select (button)
+        fileSelect.addEventListener("change", fileSelectHandler, false);
+
+        // Check if browser supports drag-and-drop and XHR2
+        var xhr = new XMLHttpRequest();
+        if (xhr.upload) {
+            // Dragover and Dragleave events to style the drop area
+            fileDrag.addEventListener("dragover", fileDragHover, false);
+            fileDrag.addEventListener("dragleave", fileDragHover, false);
+            fileDrag.addEventListener("drop", fileSelectHandler, false);
+        }
+    }
+
+    // Prevent default behavior for drag-and-drop
+    function fileDragHover(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var fileDrag = document.getElementById("file-drag");
+        fileDrag.className = (e.type === "dragover" ? "hover" : "uploader");
+    }
+
+    // File select handler (called for both drag-and-drop and button selection)
+    function fileSelectHandler(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var files = e.target.files || e.dataTransfer.files;
+
+        // Clear the drag-hover effect
+        fileDragHover(e);
+
+        // Process the selected files
+        for (var i = 0, f; (f = files[i]); i++) {
+            parseFile(f);
+            uploadFile(f);
+        }
+    }
+
+    // Display the file name and check if it's a PDF
+    function parseFile(file) {
+        output("<strong>" + encodeURI(file.name) + "</strong>");
+
+        var isPDF = /\.pdf$/i.test(file.name);
+        if (isPDF) {
+            document.getElementById("start").classList.add("hidden");
+            document.getElementById("response").classList.remove("hidden");
+            document.getElementById("notpdf").classList.add("hidden");
+        } else {
+            document.getElementById("notpdf").classList.remove("hidden");
+            document.getElementById("start").classList.remove("hidden");
+            document.getElementById("response").classList.add("hidden");
+            document.getElementById("file-upload-form").reset();
+        }
+    }
+
+    // Output messages to the UI
+    function output(msg) {
+        var m = document.getElementById("messages");
+        m.innerHTML = msg;
+    }
+
+    // Upload the file to the server
+    function uploadFile(file) {
+        var xhr = new XMLHttpRequest(),
+            pBar = document.getElementById("file-progress"),
+            fileSizeLimit = 20; // 20 MB file size limit
+
+        if (xhr.upload) {
+            if (file.size <= fileSizeLimit * 1024 * 1024) {
+                // Progress bar display
+                pBar.style.display = "inline";
+                xhr.upload.addEventListener("loadstart", setProgressMaxValue, false);
+                xhr.upload.addEventListener("progress", updateFileProgress, false);
+
+                // Handle response from server
+                xhr.onreadystatechange = function (e) {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        output("Upload complete!");
+                    } else if (xhr.readyState == 4) {
+                        output("Upload failed.");
+                    }
+                };
+
+                // Send file
+                xhr.open("POST", document.getElementById("file-upload-form").action, true);
+                xhr.setRequestHeader("X-File-Name", file.name);
+                xhr.setRequestHeader("X-File-Size", file.size);
+                xhr.setRequestHeader("Content-Type", "multipart/form-data");
+                xhr.send(file);
+            } else {
+                output("Please upload a smaller file (< " + fileSizeLimit + " MB).");
+            }
+        }
+    }
+
+    // Set progress bar max value
+    function setProgressMaxValue(e) {
+        var pBar = document.getElementById("file-progress");
+
+        if (e.lengthComputable) {
+            pBar.max = e.total;
+        }
+    }
+
+    // Update the progress bar during file upload
+    function updateFileProgress(e) {
+        var pBar = document.getElementById("file-progress");
+
+        if (e.lengthComputable) {
+            pBar.value = e.loaded;
+        }
+    }
+
+    // Initialize
+    if (window.File && window.FileList && window.FileReader) {
+        Init();
+    } else {
+        document.getElementById("file-drag").style.display = "none";
+    }
+}
+
+ekUpload();
+
+</script>
+
+
+</body>
+
+</html>
