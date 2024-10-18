@@ -136,6 +136,3 @@ For questions or suggestions, please contact:
 
 
 [![Presentation](https://img.shields.io/badge/Presentation-Click_here-green)](https://docs.google.com/presentation/d/1O8bBm-fDYFV1PbKHGNwArjut8q8N1pPr/edit?usp=sharing&ouid=106732711946883770504&rtpof=true&sd=truee)
-
->>>>>>> 4db0770 (initial commit)
-# financial_analyst_assistant_portal

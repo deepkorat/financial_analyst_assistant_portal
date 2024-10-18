@@ -5,24 +5,24 @@ from PyPDF2 import PdfReader
 
 from langchain.text_splitter import CharacterTextSplitter, RecursiveCharacterTextSplitter
 
-from langchain.vectorstores import ElasticVectorSearch, Pinecone, Weaviate, FAISS
-from langchain.vectorstores import Chroma
+from langchain_community.vectorstores import ElasticVectorSearch, Pinecone, Weaviate, FAISS
+from langchain_community.vectorstores import Chroma
 
-from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.chains.question_answering import load_qa_chain
-from langchain.llms import OpenAI
+# from langchain.embeddings.openai import OpenAIEmbeddings
+# from langchain.llms import OpenAI
 
 
 ## Add your API here. ##
 os.environ["OPENAI_API_KEY"] = "your_api_key"
 
 
-def read_pdf():
+def read_pdf(path: str) -> str:
      '''
      This function take path and extract texts from Annual Report
      '''
      try:
-          pdf_reader = PdfReader("../uploads/tcs.pdf")
+          pdf_reader = PdfReader(path)
           my_text = []
           for page in pdf_reader.pages:
                text = page.extract_text()
@@ -33,7 +33,7 @@ def read_pdf():
      except Exception as e:
           print("Something is wrong in Path: ", e)
 
-def text_splitter(text):
+def text_splitter(text: str)->list:
      '''
      The function split the text into several chunks. It takes raw text of Annual report as a argument.
      Function returns Docs as list.  
@@ -51,6 +51,7 @@ def embeddings():
           return embeddings
      except Exception as e:
           print("Something is wrong in Embedding section: ", e)
+          
      
 def docsearch(docs, embeddings):
      '''
@@ -83,4 +84,13 @@ def question_answer(chain, query, docs):
      docs = docsearch.similarity_search(query)
      chain.run(input_documents=docs, question=query)
 
+
+# Usage
+if __name__ == "__main__":
+    # 1. Read PDF and extract text
+    text = read_pdf("uploads/tcs.pdf")
+
+    # 2. Split text into chunks
+    docs = text_splitter(text)
+    print(docs[0])
 
