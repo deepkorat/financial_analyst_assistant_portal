@@ -1,16 +1,15 @@
-<!-- Document upload page -->
- 
-<!-- app/templates/upload.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Upload Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload PDF for Q&A</title>
 </head>
 <body>
-    <h1>Upload Financial Document</h1>
+    <h1>Upload PDF for Q&A</h1>
     <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="submit" value="Upload">
+        <input type="file" name="annual_repor" />
+        <button type="submit">Upload</button>
     </form>
 </body>
 </html>
