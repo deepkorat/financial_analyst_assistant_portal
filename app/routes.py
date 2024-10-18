@@ -13,7 +13,7 @@ def home():
 
 @main.route('/upload_page')
 def upload_page():
-    return render_template('upload.html')
+    return render_template('uploadtry.html')
 
 
 @main.route('/upload', methods=['POST'])
