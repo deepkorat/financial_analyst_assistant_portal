@@ -1,0 +1,16 @@
+# # run.py
+# from app import create_app
+
+# app = create_app()
+
+# if __name__ == '__main__':
+#     app.run(debug=True)
+
+
+# APP 2
+from app2 import create_app
+
+app = create_app()
+
+if __name__ == '__main__':
+    app.run(debug=True)
