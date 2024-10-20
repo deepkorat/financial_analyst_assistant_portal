@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Analyst Assistant Portal</title>
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> -->
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        display: flex;
+        height: 100vh;
+    }
+
+    .sidebar {
+        width: 250px;
+        background-color: #333;
+        color: white;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .sidebar .logo h2 {
+        margin: 0;
+        padding: 0;
+        color: #ff6600;
+    }
+
+    .sidebar nav ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .sidebar nav ul li {
+        margin: 20px 0;
+    }
+
+    .sidebar nav ul li a {
+        color: white;
+        text-decoration: none;
+        display: block;
+    }
+
+    .sidebar nav ul li a:hover {
+        background-color: #ff6600;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .main-content {
+        flex: 1;
+        padding: 20px;
+        background-color: #f8f9fa;
+        overflow-y: auto;
+    }
+
+    /* Style for each section's content */
+    .questions,
+    .question-card,
+    .question-form {
+        margin-top: 20px;
+    }
+
+    .search-form,
+    .email-form {
+        margin-top: 20px;
+    }
+
+    .search-input,
+    .email-input,
+    .question-input {
+        width: 80%;
+        padding: 15px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .submit-btn {
+        padding: 15px;
+        background-color: #ff6600;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .submit-btn:hover {
+        background-color: #ff4500;
+    }
+
+    .announcement-list,
+    .watchlist {
+        list-style: none;
+        margin-top: 20px;
+        padding-left: 0;
+    }
+
+    .announcement-list li,
+    .watchlist li {
+        background-color: #f8f9fa;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    .announcement-list li:hover,
+    .watchlist li:hover {
+        background-color: #ff6600;
+        color: white;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>StockInsights</h2>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/ai-assist">AI Assist</a></li>
+                    <li><a href="/dashboard2">Dashboard 2</a></li>
+                    <li><a href="/announcements">Announcements</a></li>
+                    <li><a href="/watchlist">My Watchlist</a></li>
+                    <li><a href="/email-updates">Email Updates</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main content area -->
+        <main class="main-content" id="content">
+            <!-- Content will be loaded here dynamically -->
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+
+<script>
+
+    function getanswer() {
+        debugger;
+        const query = document.getElementById('txtquery').innerText;
+        const answer = document.getElementById('txtanswer').innerText;
+
+        // Now you can use these values in your JavaScript code
+        console.log("Query:", query);
+        console.log("Answer:", answer);
+
+        document.getElementById('getanswer').innerText = `Query: ${query}, Answer: ${answer}`;
+    }
+
+</script>
+
+</html>

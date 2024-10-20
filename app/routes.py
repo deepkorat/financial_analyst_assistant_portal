@@ -13,7 +13,7 @@ def home():
 
 @main.route('/upload_page')
 def upload_page():
-    return render_template('upload.html')
+    return render_template('base.html')
 
 
 @main.route('/upload', methods=['POST'])
@@ -34,6 +34,43 @@ def upload():
 
 
     # return render_template('main.html', result = result)
+
+
+@main.route('/ai-assist')
+def ai_assist():
+    # return render_template('ai-assist.html')
+    return render_template('dashboard.html')
+
+
+@main.route('/ai', methods=['POST'])
+def ai_assist_form():
+    query = request.form['query']
+    answer="This is my annual report answer"
+    return render_template('ai-assist.html', query= query, answer=answer)
+
+
+@main.route('/dashboard2')
+def dashboard2():
+    return render_template('dashboard2.html')
+
+
+
+@main.route('/data')
+def send_data():
+    data = {'key': 'value'}
+    return jsonify(data)
+
+@main.route('/ask', methods=['POST'])
+def ask_question():
+    # Get the question from the request (sent via JavaScript)
+    question = request.json.get('question')
+    
+    # Example simple model logic for answering
+    response = "this is your anawer"
+    
+    # Send the response back to JavaScript as JSON
+    return jsonify({'answer': response})
+
 
 @main.route('/news')
 def news():
