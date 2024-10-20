@@ -30,7 +30,7 @@ def upload():
         file_path = os.path.join('uploads', file.filename)
         file.save(file_path)
 
-        return f"File {file.filename} uploaded successfully"
+        return render_template('dashboard.html', filename = file.filename )
 
 
     # return render_template('main.html', result = result)
