@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<section>
+     <h1>Got company-related questions? I'm here to assist!</h1>
+     <p>Use AI-Assist to explore earnings call transcripts, annual reports.</p>
+     <div class="questions">
+          <div class="question-card">
+               <p>Are there any suppliers to Vandhe Bharat trains?</p>
+               <span>EARNINGS TRANSCRIPTS & ANNUAL REPORTS</span>
+          </div>
+          <div class="question-card">
+               <p>Is there any discussion around ChatGPT in any of the calls?</p>
+               <span>EARNINGS TRANSCRIPTS & ANNUAL REPORTS</span>
+          </div>
+          <div class="question-card">
+               <p>How does revenue from movie tickets compare to sale of food for PVR?</p>
+               <span>EARNINGS TRANSCRIPTS & ANNUAL REPORTS</span>
+          </div>
+     </div>
+     <p>Question: {{query}}</p>
+     <form class="question-form" action="/ai" method="post">
+          <input type="text" name='query' placeholder="Ask me any question..." class="question-input">
+          <button type="submit" class="submit-btn">&#10148;</button>
+     </form>
+</section>
+
+{% endblock content %}
