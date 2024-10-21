@@ -68,7 +68,6 @@ def ask_question():
     # Get the question from the request (sent via JavaScript)
     question = request.json.get('question')
     
-
     # Example simple model logic for answering
     response = "this is my flask answer."
     

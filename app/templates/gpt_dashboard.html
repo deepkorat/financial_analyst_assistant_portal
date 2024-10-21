@@ -375,77 +375,42 @@
           return chatDiv; // Return the created chat div
      }
 
-     // Function for fetching data from FLASK
-     const fetchDataFromFlask = async () => {
+
+     // function for fetching data from flask
+     async function fetchDataFromFlask() {
+          const question = { question: userText };
+          console.log(userText)
           try {
-               const response = await fetch("http://127.0.0.1:5000//ask", {
-                    method: "POST",  // Or "GET", depending on your Flask route
+               const response = await fetch("/ask", {
+                    method: "POST",
                     headers: {
-                         "Content-Type": "application/json"
+                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ "key": "value" })  // Optional, if you're sending data
+                    body: JSON.stringify(question),
                });
 
-               if (response.ok) {
-                    const data = await response.json();  // Parse the JSON response
-                    return data;  // Return the fetched data
-               } else {
-                    console.error("Failed to fetch data:", response.status);
-                    return null;  // Return null if the response is not successful
-               }
+               const data = await response.json(); // Parse the JSON response
+
+               console.log(data); // Check the structure of the received data
+               return data; // Returning data to use it elsewhere in your code
           } catch (error) {
-               console.error("Error occurred while fetching data:", error);
-               return null;  // Return null if there's an error
+               console.error("Error fetching data from Flask:", error);
           }
-     };
+     }
 
-
+     // Here we fetch answer from fetchDataFromFlask Function
      const getChatResponse = async (incomingChatDiv) => {
-          //     const API_URL = "https://api.openai.com/v1/completions";
           const pElement = document.createElement("p");
-
-
-          // // Check if the input is not empty
-          // if (chatInput !== "") {
-
-          //      // Send the question to the Flask backend using fetch
-          //      fetch('/ask', {
-          //           method: 'POST',
-          //           headers: {
-          //                'Content-Type': 'application/json',
-          //           },
-          //           body: JSON.stringify({ question: question })
-          //      })
-          //           .then(response => response.json())
-          //           .then(data => {
-          //                // Display the response from the Flask model in the chat container
-          //                addMessageToChat("bot", data.answer);
-          //           })
-          //           .catch(error => {
-          //                console.error('Error:', error);
-          //           });
-          // }
-
-
           try {
-               const handleFetchedData = async () => {
-                    const answer_object = await fetchDataFromFlask();  // Wait for the data to be fetched
-                    
-                    if (answer_object) {
-                         pElement.textContent = answer_object.text
-                         console.log("successffuly achieved");
-                    } else {
-                         console.log("No data fetched.");
-                    }
-               };
+               const answer_object = await fetchDataFromFlask();  // Get the response from Flask
 
-               // Call the function to handle fetched data
-               handleFetchedData();
-
-
-               // const response = await (await fetch(API_URL, requestOptions)).json();
-               // const response = "This is my answer";
-               // pElement.textContent = response;
+               if (answer_object && answer_object.response) {
+                    const answerText = answer_object.response;  // Access the 'response' key from the Flask data
+                    pElement.textContent = answerText
+                    console.log(answerText);  // This will log: "This is my Flask answer."
+               } else {
+                    console.log("No response received from Flask.");
+               }
           } catch (error) { // Add error class to the paragraph element and set error text
                pElement.classList.add("error");
                pElement.textContent = "Oops! Something went wrong while retrieving the response. Please try again.";
@@ -457,6 +422,71 @@
           localStorage.setItem("all-chats", chatContainer.innerHTML);
           chatContainer.scrollTo(0, chatContainer.scrollHeight);
      }
+
+
+
+
+
+
+     
+     const sendChat = async () => {
+          userText = chatInput.value.trim(); // Get the user input
+          if (!userText) return; // Do not send empty messages
+
+          const outgoingChatDiv = createChatElement(`
+               <div class="chat-content">
+                    <div class="chat-details">
+                         <p>${userText}</p>
+                    </div>
+                    <span class="typing-animation">
+                         <span class="typing-dot"></span>
+                         <span class="typing-dot"></span>
+                         <span class="typing-dot"></span>
+                    </span>
+               </div>`, 'outgoing');
+
+          chatContainer.appendChild(outgoingChatDiv);
+          chatInput.value = ""; // Clear input field
+          chatContainer.scrollTo(0, chatContainer.scrollHeight); // Scroll to the bottom
+
+          getChatResponse(outgoingChatDiv); // Get response from the server
+     }
+
+     const saveChatsToLocalStorage = () => {
+          localStorage.setItem("all-chats", chatContainer.innerHTML); // Save chats to local storage
+          localStorage.setItem("themeColor", document.body.classList.contains("light-mode") ? "light_mode" : "dark_mode");
+     }
+
+     // Event listeners for button clicks
+     sendButton.addEventListener("click", sendChat);
+     chatInput.addEventListener("keypress", (event) => {
+          if (event.key === "Enter") sendChat(); // Send message on Enter key press
+     });
+
+     themeButton.addEventListener("click", () => {
+          document.body.classList.toggle("light-mode");
+          themeButton.innerText = document.body.classList.contains("light-mode") ? "dark_mode" : "light_mode";
+          saveChatsToLocalStorage(); // Save theme preference to local storage
+     });
+
+     deleteButton.addEventListener("click", () => {
+          localStorage.removeItem("all-chats");
+          chatContainer.innerHTML = `<div class="default-text">
+                                        <h1>Analyst AI</h1>
+                                        <p>Start a conversation and explore the power of AI.<br> Your chat history will be displayed here.</p>
+                                    </div>`;
+     });
+
+     // Load existing chats and theme from local storage
+     loadDataFromLocalstorage();
+
+
+
+
+
+
+
+
 
      const copyResponse = (copyBtn) => {
           // Copy the text content of the response to the clipboard
