@@ -14,6 +14,73 @@
 </head>
 
 <style>
+    body {
+            font-family: Arial, sans-serif;
+            display: flex; /* Use flexbox for layout */
+            margin: 0;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        
+        /* Sidebar styles */
+        .sidebar {
+            width: 250px; /* Fixed width for sidebar */
+            background: #fff;
+            border-right: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sidebar h2 {
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+        
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+        
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Chats container styling */
+        .chat-container {
+            flex: 1; /* Take remaining space */
+            overflow-y: auto;
+            max-height: 100vh;
+            padding-bottom: 150px; /* Maintain existing styles */
+        }
+
+        :where(.chat-container, textarea)::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        :where(.chat-container, textarea)::-webkit-scrollbar-track {
+            background: var(--incoming-chat-bg);
+            border-radius: 25px;
+        }
+
+        :where(.chat-container, textarea)::-webkit-scrollbar-thumb {
+            background: var(--icon-color);
+            border-radius: 25px;
+        }
+
+        /* Typing container styling */
+        .typing-container {
+            padding: 10px;
+            background: #fff; /* Optional: background color for typing area */
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+
      /* Import Google font - Poppins */
      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
@@ -323,6 +390,20 @@
 </style>
 
 <body>
+
+     
+     <!-- Sidebar -->
+     <div class="sidebar">
+          <h2>Chat Options</h2>
+          <ul>
+               <li><a href="#">Option 1</a></li>
+               <li><a href="#">Option 2</a></li>
+               <li><a href="#">Option 3</a></li>
+               <li><a href="#">Option 4</a></li>
+          </ul>
+     </div>
+
+
      <!-- Chats container -->
      <div class="chat-container"></div>
 
@@ -338,6 +419,7 @@
                     <span id="delete-btn" class="material-symbols-rounded">delete</span>
                </div>
           </div>
+     </div>
 
 </body>
 
@@ -428,7 +510,7 @@
 
 
 
-     
+
      const sendChat = async () => {
           userText = chatInput.value.trim(); // Get the user input
           if (!userText) return; // Do not send empty messages
