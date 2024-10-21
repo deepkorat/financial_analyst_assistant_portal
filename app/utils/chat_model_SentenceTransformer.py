@@ -3,6 +3,8 @@
 import os
 from PyPDF2 import PdfReader
 
+from sentence_transformers import SentenceTransformer
+
 from langchain.text_splitter import CharacterTextSplitter, RecursiveCharacterTextSplitter
 
 from langchain_community.vectorstores import ElasticVectorSearch, Pinecone, Weaviate, FAISS
@@ -82,9 +84,9 @@ def question_answer(chain, query, docs):
      chain.run(input_documents=docs, question=query)
 
 
-# Usage
-if __name__ == "__main__":
-    # 1. Read PDF and extract text
+## In this function -- many problems occur.
+def final_call():
+     # 1. Read PDF and extract text
     text = read_pdf("uploads/tcs.pdf")
 
     # 2. Split text into chunks
@@ -92,6 +94,21 @@ if __name__ == "__main__":
     
     # 3. Create embeddings using SentenceTransformer
     model = embeddings()
-    print(model)
+
+     # 4. Create vector database
+    doc_search = docsearch(docs, model)
+
+    # 5. Create chain for QA
+    chain = create_chain()
+    return chain, docs
+
+
+# Usage
+if __name__ == "__main__":
+     chain, docs = final_call()
+     answer = question_answer(chain, "Who is CEO of the compnay", docs)
+     print(answer)
+
+
     
 
