@@ -14,71 +14,76 @@
 </head>
 
 <style>
-    body {
-            font-family: Arial, sans-serif;
-            display: flex; /* Use flexbox for layout */
-            margin: 0;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-        
-        /* Sidebar styles */
-        .sidebar {
-            width: 250px; /* Fixed width for sidebar */
-            background: #fff;
-            border-right: 1px solid #ccc;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        }
-        
-        .sidebar h2 {
-            margin-top: 0;
-            font-size: 1.5em;
-        }
-        
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        
-        .sidebar ul li {
-            margin: 10px 0;
-        }
-        
-        .sidebar ul li a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
-        }
+     body {
+          font-family: Arial, sans-serif;
+          display: flex;
+          /* Use flexbox for layout */
+          margin: 0;
+          height: 100vh;
+          background-color: #f4f4f4;
+     }
 
-        /* Chats container styling */
-        .chat-container {
-            flex: 1; /* Take remaining space */
-            overflow-y: auto;
-            max-height: 100vh;
-            padding-bottom: 150px; /* Maintain existing styles */
-        }
+     /* Sidebar styles */
+     .sidebar {
+          width: 250px;
+          /* Fixed width for sidebar */
+          background: #fff;
+          border-right: 1px solid #ccc;
+          padding: 20px;
+          box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+     }
 
-        :where(.chat-container, textarea)::-webkit-scrollbar {
-            width: 6px;
-        }
+     .sidebar h2 {
+          margin-top: 0;
+          font-size: 1.5em;
+     }
 
-        :where(.chat-container, textarea)::-webkit-scrollbar-track {
-            background: var(--incoming-chat-bg);
-            border-radius: 25px;
-        }
+     .sidebar ul {
+          list-style-type: none;
+          padding: 0;
+     }
 
-        :where(.chat-container, textarea)::-webkit-scrollbar-thumb {
-            background: var(--icon-color);
-            border-radius: 25px;
-        }
+     .sidebar ul li {
+          margin: 10px 0;
+     }
 
-        /* Typing container styling */
-        .typing-container {
-            padding: 10px;
-            background: #fff; /* Optional: background color for typing area */
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-        }
+     .sidebar ul li a {
+          text-decoration: none;
+          color: #333;
+          font-weight: bold;
+     }
+
+     /* Chats container styling */
+     .chat-container {
+          flex: 1;
+          /* Take remaining space */
+          overflow-y: auto;
+          max-height: 100vh;
+          padding-bottom: 150px;
+          /* Maintain existing styles */
+     }
+
+     :where(.chat-container, textarea)::-webkit-scrollbar {
+          width: 6px;
+     }
+
+     :where(.chat-container, textarea)::-webkit-scrollbar-track {
+          background: var(--incoming-chat-bg);
+          border-radius: 25px;
+     }
+
+     :where(.chat-container, textarea)::-webkit-scrollbar-thumb {
+          background: var(--icon-color);
+          border-radius: 25px;
+     }
+
+     /* Typing container styling */
+     .typing-container {
+          padding: 10px;
+          background: #fff;
+          /* Optional: background color for typing area */
+          box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+     }
 
 
      /* Import Google font - Poppins */
@@ -391,7 +396,7 @@
 
 <body>
 
-     
+
      <!-- Sidebar -->
      <div class="sidebar">
           <h2>Chat Options</h2>
@@ -507,69 +512,6 @@
 
 
 
-
-
-
-
-     const sendChat = async () => {
-          userText = chatInput.value.trim(); // Get the user input
-          if (!userText) return; // Do not send empty messages
-
-          const outgoingChatDiv = createChatElement(`
-               <div class="chat-content">
-                    <div class="chat-details">
-                         <p>${userText}</p>
-                    </div>
-                    <span class="typing-animation">
-                         <span class="typing-dot"></span>
-                         <span class="typing-dot"></span>
-                         <span class="typing-dot"></span>
-                    </span>
-               </div>`, 'outgoing');
-
-          chatContainer.appendChild(outgoingChatDiv);
-          chatInput.value = ""; // Clear input field
-          chatContainer.scrollTo(0, chatContainer.scrollHeight); // Scroll to the bottom
-
-          getChatResponse(outgoingChatDiv); // Get response from the server
-     }
-
-     const saveChatsToLocalStorage = () => {
-          localStorage.setItem("all-chats", chatContainer.innerHTML); // Save chats to local storage
-          localStorage.setItem("themeColor", document.body.classList.contains("light-mode") ? "light_mode" : "dark_mode");
-     }
-
-     // Event listeners for button clicks
-     sendButton.addEventListener("click", sendChat);
-     chatInput.addEventListener("keypress", (event) => {
-          if (event.key === "Enter") sendChat(); // Send message on Enter key press
-     });
-
-     themeButton.addEventListener("click", () => {
-          document.body.classList.toggle("light-mode");
-          themeButton.innerText = document.body.classList.contains("light-mode") ? "dark_mode" : "light_mode";
-          saveChatsToLocalStorage(); // Save theme preference to local storage
-     });
-
-     deleteButton.addEventListener("click", () => {
-          localStorage.removeItem("all-chats");
-          chatContainer.innerHTML = `<div class="default-text">
-                                        <h1>Analyst AI</h1>
-                                        <p>Start a conversation and explore the power of AI.<br> Your chat history will be displayed here.</p>
-                                    </div>`;
-     });
-
-     // Load existing chats and theme from local storage
-     loadDataFromLocalstorage();
-
-
-
-
-
-
-
-
-
      const copyResponse = (copyBtn) => {
           // Copy the text content of the response to the clipboard
           const reponseTextElement = copyBtn.parentElement.querySelector("p");
@@ -657,6 +599,11 @@
 
      loadDataFromLocalstorage();
      sendButton.addEventListener("click", handleOutgoingChat);
+
+
+
+
+
 </script>
 
 </html>

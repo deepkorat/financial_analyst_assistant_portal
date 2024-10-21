@@ -2,6 +2,7 @@
 import os
 from flask import jsonify, request
 from flask import Blueprint, render_template
+from utils.chat_model_SentenceTransformer import read_pdf, text_splitter, embeddings, docsearch, question_answer
 
 # Create a Blueprint
 main = Blueprint('main', __name__)
@@ -20,7 +21,7 @@ def upload_page():
 
 @main.route('/upload', methods=['POST'])
 def upload():
-    if request.method == 'POST':
+    if request.method == 'POST':    
         if 'annual_report' not in request.files:
             return jsonify({"error": "No file part"})
         
@@ -30,6 +31,17 @@ def upload():
 
         file_path = os.path.join('uploads', file.filename)
         file.save(file_path)
+
+
+        # 1. Read PDF and extract text
+        text = read_pdf(file_path)
+
+        # 2. Split text into chunks
+        docs = text_splitter(text)
+        
+        # 3. Create embeddings using SentenceTransformer
+        model = embeddings()
+        print(model)
 
         return render_template('dashboard.html', filename = file.filename )
 
