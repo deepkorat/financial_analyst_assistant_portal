@@ -105,9 +105,12 @@ def final_call():
 
 # Usage
 if __name__ == "__main__":
-     chain, docs = final_call()
-     answer = question_answer(chain, "Who is CEO of the compnay", docs)
-     print(answer)
+     modelTrained = False
+     if modelTrained == False:
+          chain, docs = final_call()
+          answer = question_answer(chain, "Who is CEO of the compnay", docs)
+          print(answer)
+
 
 
     
