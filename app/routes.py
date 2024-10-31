@@ -2,7 +2,7 @@
 import os
 from flask import jsonify, request
 from flask import Blueprint, render_template
-from utils.chat_model_SentenceTransformer import read_pdf, text_splitter, embeddings, docsearch, question_answer
+# from utils.chat_model_SentenceTransformer import read_pdf, text_splitter, embeddings, docsearch, question_answer
 
 # Create a Blueprint
 main = Blueprint('main', __name__)
@@ -34,15 +34,15 @@ def upload():
 
 
         # 1. Read PDF and extract text
-        text = read_pdf(file_path)
+        # text = read_pdf(file_path)
 
-        # 2. Split text into chunks
-        docs = text_splitter(text)
+        # # 2. Split text into chunks
+        # docs = text_splitter(text)
         
-        # 3. Create embeddings using SentenceTransformer
-        model = embeddings()
-        print(model)
-
+        # # 3. Create embeddings using SentenceTransformer
+        # model = embeddings()
+        # print(model)
+    
         return render_template('dashboard.html', filename = file.filename )
 
     # return render_template('main.html', result = result)
@@ -82,7 +82,7 @@ def ask_question():
     
     # Example simple model logic for answering
     response = "this is my flask answer."
-    
+   
     # Send the response back to JavaScript as JSON
     response_data = {"message": "Data received successfully", "response": response}
 
