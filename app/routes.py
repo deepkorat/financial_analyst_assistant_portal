@@ -2,6 +2,7 @@
 import os
 from flask import jsonify, request
 from flask import Blueprint, render_template
+from app.utils.chat_model_SentenceTransformer import final_call
 # from utils.chat_model_SentenceTransformer import read_pdf, text_splitter, embeddings, docsearch, question_answer
 
 # Create a Blueprint
@@ -60,6 +61,7 @@ def gpt_dashboard():
 @main.route('/ai', methods=['POST'])
 def ai_assist_form():
     query = request.form['query']
+
     answer="This is my annual report answer" ## implement your model here and fetch answer
     return render_template('ai-assist.html', query= query, answer=answer)
 
@@ -81,7 +83,10 @@ def ask_question():
     question = request.json.get('question')
     
     # Example simple model logic for answering
-    response = "this is my flask answer."
+    chain, docs = final_call()
+    answer = question_answer(chain, query, docs)
+    # response = "this is my flask answer."
+    response = answer
    
     # Send the response back to JavaScript as JSON
     response_data = {"message": "Data received successfully", "response": response}
