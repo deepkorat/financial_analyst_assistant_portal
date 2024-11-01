@@ -12,6 +12,10 @@ from langchain_community.vectorstores import Chroma
 
 from langchain.chains.question_answering import load_qa_chain
 
+import openai
+from langchain_community.llms import OpenAI
+
+
 
 def read_pdf(path: str) -> str:
      '''
@@ -88,18 +92,23 @@ def question_answer(chain, query, docs):
 def final_call():
      # 1. Read PDF and extract text
     text = read_pdf("uploads/tcs.pdf")
+    print("Text reading is done")
 
     # 2. Split text into chunks
     docs = text_splitter(text)
+    print("text splitting is done")
     
     # 3. Create embeddings using SentenceTransformer
     model = embeddings()
+    print("Model is done")
 
      # 4. Create vector database
     doc_search = docsearch(docs, model)
+    print("doc_search is done")
 
     # 5. Create chain for QA
     chain = create_chain()
+    print("all done")
     return chain, docs
 
 
