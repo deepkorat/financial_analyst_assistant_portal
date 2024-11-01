@@ -12,8 +12,11 @@ from langchain_community.vectorstores import Chroma
 
 from langchain.chains.question_answering import load_qa_chain
 
-import openai
-from langchain_community.llms import OpenAI
+# import openai
+from langchain_huggingface import HuggingFaceEndpoint
+
+
+# from langchain_community.llms import OpenAI
 
 
 
@@ -72,10 +75,15 @@ def create_chain():
      '''
      Create chain using openAI.
      '''
-     chain = load_qa_chain(OpenAI(), chain_type="stuff")
+     llm = HuggingFaceEndpoint(endpoint_url="HUGGINGFACE_API_KEY", api_key = "HUGGINGFACE_API_KEY")
+     # llm = HuggingFaceEndpoint(endpoint_url="google/flan-t5-small", api_key="")
+     chain = load_qa_chain(llm, chain_type="stuff")
 
 
-def question_answer(chain, query, docs):
+     # chain = load_qa_chain(OpenAI(), chain_type="stuff")
+
+
+def question_answer(chain, query, docs ):
      '''
      This function used for question answer module.
      It takes 3 parameter.
