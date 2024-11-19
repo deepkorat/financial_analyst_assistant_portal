@@ -64,14 +64,7 @@ def ai_assist():
 @main.route('/gpt_dashboard')
 def gpt_dashboard():
     return render_template('gpt_dashboard.html')
-
-@main.route('/ai', methods=['POST'])
-def ai_assist_form():
-    query = request.form['query']
-
-    answer="This is my annual report answer" ## implement your model here and fetch answer
-    return render_template('ai-assist.html', query= query, answer=answer)
-
+    
 @main.route('/dashboard2')
 def dashboard2():
     return render_template('dashboard2.html')
