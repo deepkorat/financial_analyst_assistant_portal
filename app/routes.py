@@ -82,11 +82,12 @@ def ask_question():
     # Get the question from the request (sent via JavaScript)
     question = request.json.get('question')
     
-    # Example simple model logic for answering
-    chain, docs = final_call()
-    answer = question_answer(chain, query, docs)
-    # response = "this is my flask answer."
-    response = answer
+    # # Example simple model logic for answering
+    # chain, docs = final_call()
+    # answer = question_answer(chain, query, docs)
+    # # response = "this is my flask answer."
+    # response = answer
+    response = "This is my flask answer."
    
     # Send the response back to JavaScript as JSON
     response_data = {"message": "Data received successfully", "response": response}

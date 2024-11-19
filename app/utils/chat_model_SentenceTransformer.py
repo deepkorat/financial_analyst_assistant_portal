@@ -18,8 +18,6 @@ from langchain_huggingface import HuggingFaceEndpoint
 
 # from langchain_community.llms import OpenAI
 
-
-
 def read_pdf(path: str) -> str:
      '''
      This function take path and extract texts from Annual Report
