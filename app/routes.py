@@ -19,9 +19,6 @@ main = Blueprint('main', __name__)
 def home():
     return render_template('index.html')
 
-@main.route('/main')
-def my_main():
-    return render_template('main.html')
 
 @main.route('/upload_page')
 def upload_page():
@@ -64,7 +61,7 @@ def ai_assist():
 @main.route('/gpt_dashboard')
 def gpt_dashboard():
     return render_template('gpt_dashboard.html')
-    
+
 @main.route('/dashboard2')
 def dashboard2():
     return render_template('dashboard2.html')

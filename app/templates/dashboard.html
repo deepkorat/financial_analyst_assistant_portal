@@ -2,115 +2,181 @@
 
 {% block content %}
 
+<style>
+     h1 {
+          text-align: center;
+          color: #333;
+     }
 
+     .mypart {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          /* Two columns */
+          gap: 20px;
+          /* Space between columns */
+          margin-top: 20px;
+     }
+
+     .column {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          /* Space between questions in a column */
+     }
+
+     .column p {
+          background: #ffffff;
+          border: 1px solid #ddd;
+          padding: 10px;
+          border-radius: 4px;
+          margin: 0;
+     }
+</style>
 <section>
      <h1>TCS Analyst Questions</h1>
+     <div class="mypart">
 
-     <p>1. What are TCS's key business areas?</p>
-     <p>2. How many countries does TCS operate in?</p>
-     <p>3. How many employees does TCS have globally?</p>
-     <p>4. What is the total revenue of TCS for the fiscal year 2023-2024?</p>
-     <p>5. What is TCS's operating margin for FY 2024?</p>
-     <p>6. How does TCS rank globally in terms of IT service brands?</p>
-     <p>7. What is the TCS BaNCS platform used for?</p>
-     <p>8. What is TCS’s core business strategy?</p>
-     <p>9. What industries does TCS serve?</p>
-     <p>10. What is the company’s approach to client engagement?</p>
+          <div class="column">
+               <h3>General Company Overview</h3>
+               <p>1. What are TCS's key business areas?</p>
+               <p>2. How many countries does TCS operate in?</p>
+               <p>3. How many employees does TCS have globally?</p>
+               <p>4. What is the total revenue of TCS for the fiscal year 2023-2024?</p>
+               <p>5. What is TCS's operating margin for FY 2024?</p>
+               <p>6. How does TCS rank globally in terms of IT service brands?</p>
+               <p>7. What is the TCS BaNCS platform used for?</p>
+               <p>8. What is TCS’s core business strategy?</p>
+               <p>9. What industries does TCS serve?</p>
+               <p>10. What is the company’s approach to client engagement?</p>
+          </div>
 
-     <p>11. What was TCS's net profit for FY 2024?</p>
-     <p>12. How does TCS’s FY 2024 revenue compare to FY 2023?</p>
-     <p>13. What are the geographic regions where TCS has the highest growth?</p>
-     <p>14. What percentage of revenue came from North America in FY 2024?</p>
-     <p>15. What was the growth rate in emerging markets for TCS?</p>
-     <p>16. What is the total dividend declared for FY 2024?</p>
-     <p>17. What is TCS's Return on Equity (ROE) for FY 2024?</p>
-     <p>18. How much revenue does TCS generate from its top clients?</p>
-     <p>19. What percentage of TCS's revenue comes from its digital offerings?</p>
-     <p>20. What is the order book value for FY 2024?</p>
+          <div class="column">
+               <h3>Financial Performance</h3>
+               <p>11. What was TCS's net profit for FY 2024?</p>
+               <p>12. How does TCS’s FY 2024 revenue compare to FY 2023?</p>
+               <p>13. What are the geographic regions where TCS has the highest growth?</p>
+               <p>14. What percentage of revenue came from North America in FY 2024?</p>
+               <p>15. What was the growth rate in emerging markets for TCS?</p>
+               <p>16. What is the total dividend declared for FY 2024?</p>
+               <p>17. What is TCS's Return on Equity (ROE) for FY 2024?</p>
+               <p>18. How much revenue does TCS generate from its top clients?</p>
+               <p>19. What percentage of TCS's revenue comes from its digital offerings?</p>
+               <p>20. What is the order book value for FY 2024?</p>
+          </div>
 
-     <p>21. What is TCS's net zero target?</p>
-     <p>22. How has TCS reduced its Scope 1 and Scope 2 emissions?</p>
-     <p>23. What percentage of TCS's energy comes from renewable sources?</p>
-     <p>24. How much water does TCS recycle across its campuses?</p>
-     <p>25. What are TCS’s initiatives to reduce waste generation?</p>
-     <p>26. What sustainability goals is Project Aalingana focused on?</p>
-     <p>27. How is TCS leveraging its Clever Energy platform for energy efficiency?</p>
-     <p>28. How does TCS plan to achieve 100% renewable energy consumption?</p>
-     <p>29. What biodiversity initiatives has TCS undertaken?</p>
-     <p>30. What are TCS’s major investments in sustainability research?</p>
+          <div class="column">
+               <h3>Sustainability and Net Zero Goals</h3>
+               <p>21. What is TCS's net zero target?</p>
+               <p>22. How has TCS reduced its Scope 1 and Scope 2 emissions?</p>
+               <p>23. What percentage of TCS's energy comes from renewable sources?</p>
+               <p>24. How much water does TCS recycle across its campuses?</p>
+               <p>25. What are TCS’s initiatives to reduce waste generation?</p>
+               <p>26. What sustainability goals is Project Aalingana focused on?</p>
+               <p>27. How is TCS leveraging its Clever Energy platform for energy efficiency?</p>
+               <p>28. How does TCS plan to achieve 100% renewable energy consumption?</p>
+               <p>29. What biodiversity initiatives has TCS undertaken?</p>
+               <p>30. What are TCS’s major investments in sustainability research?</p>
+          </div>
 
-     <p>31. What is the attrition rate of TCS employees in FY 2024?</p>
-     <p>32. How many nationalities are represented in the TCS workforce?</p>
-     <p>33. What percentage of TCS employees are women?</p>
-     <p>34. What training initiatives has TCS launched for its employees?</p>
-     <p>35. How many hours of learning did TCS employees complete in FY 2024?</p>
-     <p>36. What is the TCS Elevate program?</p>
-     <p>37. How is TCS preparing employees for GenAI readiness?</p>
-     <p>38. How has TCS supported diversity and inclusion in its workforce?</p>
-     <p>39. What is the average tenure of employees at TCS?</p>
-     <p>40. What are the engineering culture-building initiatives launched by TCS?</p>
+          <div class="column">
+               <h3>Employee and Workforce</h3>
+               <p>31. What is the attrition rate of TCS employees in FY 2024?</p>
+               <p>32. How many nationalities are represented in the TCS workforce?</p>
+               <p>33. What percentage of TCS employees are women?</p>
+               <p>34. What training initiatives has TCS launched for its employees?</p>
+               <p>35. How many hours of learning did TCS employees complete in FY 2024?</p>
+               <p>36. What is the TCS Elevate program?</p>
+               <p>37. How is TCS preparing employees for GenAI readiness?</p>
+               <p>38. How has TCS supported diversity and inclusion in its workforce?</p>
+               <p>39. What is the average tenure of employees at TCS?</p>
+               <p>40. What are the engineering culture-building initiatives launched by TCS?</p>
+          </div>
 
-     <p>41. What is the role of TCS Pace Port innovation hubs?</p>
-     <p>42. How many patents did TCS file in FY 2024?</p>
-     <p>43. What is TCS’s AI.Cloud unit?</p>
-     <p>44. How is TCS embedding AI/ML into its services and products?</p>
-     <p>45. What is TCS's approach to generative AI (GenAI)?</p>
-     <p>46. How does TCS use AI in cybersecurity services?</p>
-     <p>47. What are TCS’s recent advancements in the 5G/6G communication stack?</p>
-     <p>48. How does TCS leverage its Digital Twin technology?</p>
-     <p>49. What is the significance of TCS HOBS in the telecom sector?</p>
-     <p>50. What are the primary focus areas of TCS's R&D investments?</p>
+          <div class="column">
+               <h3>Innovations and Technology</h3>
+               <p>41. What is the role of TCS Pace Port innovation hubs?</p>
+               <p>42. How many patents did TCS file in FY 2024?</p>
+               <p>43. What is TCS’s AI.Cloud unit?</p>
+               <p>44. How is TCS embedding AI/ML into its services and products?</p>
+               <p>45. What is TCS's approach to generative AI (GenAI)?</p>
+               <p>46. How does TCS use AI in cybersecurity services?</p>
+               <p>47. What are TCS’s recent advancements in the 5G/6G communication stack?</p>
+               <p>48. How does TCS leverage its Digital Twin technology?</p>
+               <p>49. What is the significance of TCS HOBS in the telecom sector?</p>
+               <p>50. What are the primary focus areas of TCS's R&D investments?</p>
+          </div>
 
-     <p>51. What are the key clients for TCS in FY 2024?</p>
-     <p>52. How has TCS contributed to BSNL's 4G/5G rollout?</p>
-     <p>53. What projects has TCS undertaken in the UK market?</p>
-     <p>54. How has TCS transformed Aviva’s life business in the UK?</p>
-     <p>55. What is TCS's engagement with Euroclear Finland?</p>
-     <p>56. How is TCS supporting Experian with financial inclusion initiatives?</p>
-     <p>57. What industries are driving the highest demand for TCS services?</p>
-     <p>58. What is the average tenure of client relationships at TCS?</p>
-     <p>59. How does TCS leverage its contextual knowledge in client projects?</p>
-     <p>60. What is TCS’s strategy for vendor consolidation projects?</p>
+          <div class="column">
+               <h3>Client Engagements</h3>
+               <p>51. What are the key clients for TCS in FY 2024?</p>
+               <p>52. How has TCS contributed to BSNL's 4G/5G rollout?</p>
+               <p>53. What projects has TCS undertaken in the UK market?</p>
+               <p>54. How has TCS transformed Aviva’s life business in the UK?</p>
+               <p>55. What is TCS's engagement with Euroclear Finland?</p>
+               <p>56. How is TCS supporting Experian with financial inclusion initiatives?</p>
+               <p>57. What industries are driving the highest demand for TCS services?</p>
+               <p>58. What is the average tenure of client relationships at TCS?</p>
+               <p>59. How does TCS leverage its contextual knowledge in client projects?</p>
+               <p>60. What is TCS’s strategy for vendor consolidation projects?</p>
+          </div>
 
-     <p>61. How is TCS accelerating cloud transformation for its clients?</p>
-     <p>62. What is TCS's role in enabling digital platforms for education and healthcare?</p>
-     <p>63. How does TCS enable hybrid and multi-cloud environments?</p>
-     <p>64. What are the primary benefits of TCS's SaaS platforms?</p>
-     <p>65. How does TCS address data privacy concerns for its clients?</p>
-     <p>66. What is the TCS Digital Platform for Life and Pensions?</p>
-     <p>67. How does TCS assist clients in adopting AI-infused transformations?</p>
-     <p>68. What digital solutions has TCS implemented for the telecom industry?</p>
-     <p>69. How is TCS advancing digital banking platforms?</p>
-     <p>70. What are TCS's primary offerings in customer experience enhancements?</p>
+          <div class="column">
+               <h3>Digital Transformation</h3>
+               <p>61. How is TCS accelerating cloud transformation for its clients?</p>
+               <p>62. What is TCS's role in enabling digital platforms for education and healthcare?</p>
+               <p>63. How does TCS enable hybrid and multi-cloud environments?</p>
+               <p>64. What are the primary benefits of TCS's SaaS platforms?</p>
+               <p>65. How does TCS address data privacy concerns for its clients?</p>
+               <p>66. What is the TCS Digital Platform for Life and Pensions?</p>
+               <p>67. How does TCS assist clients in adopting AI-infused transformations?</p>
+               <p>68. What digital solutions has TCS implemented for the telecom industry?</p>
+               <p>69. How is TCS advancing digital banking platforms?</p>
+               <p>70. What are TCS's primary offerings in customer experience enhancements?</p>
+          </div>
 
-     <p>71. What is TCS's investment in CSR initiatives for FY 2024?</p>
-     <p>72. How many beneficiaries have been impacted by TCS's Ignite My Future program?</p>
-     <p>73. What is the purpose of TCS's goIT program?</p>
-     <p>74. How does TCS empower rural entrepreneurs through BridgeIT?</p>
-     <p>75. How many hours did TCS employees contribute to volunteer work?</p>
-     <p>76. What are TCS's efforts in closing the literacy gap?</p>
-     <p>77. How is TCS supporting marginalized communities in India?</p>
-     <p>78. What are the key healthcare programs initiated by TCS?</p>
-     <p>79. How is TCS addressing youth unemployment through its CSR programs?</p>
-     <p>80. What are TCS’s future plans for social impact programs?</p>
+          <div class="column">
+               <h3>Corporate Social Responsibility (CSR)</h3>
+               <p>71. What is TCS's investment in CSR initiatives for FY 2024?</p>
+               <p>72. How many beneficiaries have been impacted by TCS's Ignite My Future program?</p>
+               <p>73. What is the purpose of TCS's goIT program?</p>
+               <p>74. How does TCS empower rural entrepreneurs through BridgeIT?</p>
+               <p>75. How many hours did TCS employees contribute to volunteer work?</p>
+               <p>76. What are TCS's efforts in closing the literacy gap?</p>
+               <p>77. How is TCS supporting marginalized communities in India?</p>
+               <p>78. What are the key healthcare programs initiated by TCS?</p>
+               <p>79. How is TCS addressing youth unemployment through its CSR programs?</p>
+               <p>80. What are TCS’s future plans for social impact programs?</p>
+          </div>
 
-     <p>81. What are the mega trends shaping the IT services industry?</p>
-     <p>82. How is TCS addressing supply chain challenges for its clients?</p>
-     <p>83. What is TCS’s approach to the global energy transition?</p>
-     <p>84. How does TCS mitigate geopolitical risks in its operations?</p>
-     <p>85. What are the emerging technologies that TCS is investing in?</p>
-     <p>86. How does TCS foresee the impact of AI/GenAI on industries?</p>
-     <p>87. What are TCS's strategies to deal with inflation and cost pressures?</p>
-     <p>88. How is TCS enabling its clients to achieve sustainability goals?</p>
-     <p>89. What role does TCS play in the digital transformation of manufacturing?</p>
-     <p>90. How does TCS support clients in navigating economic uncertainties?</p>
+          <div class="column">
+               <h3>Industry Trends and Challenges</h3>
+               <p>81. What are the mega trends shaping the IT services industry?</p>
+               <p>82. How is TCS addressing supply chain challenges for its clients?</p>
+               <p>83. What is TCS’s approach to the global energy transition?</p>
+               <p>84. How does TCS mitigate geopolitical risks in its operations?</p>
+               <p>85. What are the emerging technologies that TCS is investing in?</p>
+               <p>86. How does TCS foresee the impact of AI/GenAI on industries?</p>
+               <p>87. What are TCS's strategies to deal with inflation and cost pressures?</p>
+               <p>88. How is TCS enabling its clients to achieve sustainability goals?</p>
+               <p>89. What role does TCS play in the digital transformation of manufacturing?</p>
+               <p>90. How does TCS support clients in navigating economic uncertainties?</p>
+          </div>
 
-     <p>91. What is TCS's long-term growth strategy?</p>
-     <p>92. How does TCS plan to expand its client base in emerging markets?</p>
-     <p>93. What are TCS's key goals for FY 2025?</p>
-     <p>94. How is TCS preparing for the widespread adoption of GenAI?</p>
-     <p>95. What are TCS’s plans for expanding its innovation hubs globally?</p>
-     <p>96. How does TCS foresee the role of AI in drug development?</p>
+          <div class="column">
+               <h3>Future Outlook</h3>
+               <p>91. What is TCS's long-term growth strategy?</p>
+               <p>92. How does TCS plan to expand its client base in emerging markets?</p>
+               <p>93. What are TCS's key goals for FY 2025?</p>
+               <p>94. How is TCS preparing for the widespread adoption of GenAI?</p>
+               <p>95. What are TCS’s plans for expanding its innovation hubs globally?</p>
+               <p>96. How does TCS foresee the role of AI in drug development?</p>
+               <p>97. What industries will drive the next phase of TCS's growth?</p>
+               <p>98. How does TCS plan to address climate-related challenges?</p>
+               <p>99. What is TCS's vision for the next decade?</p>
+               <p>100. How will TCS evolve its service offerings to meet future demands?</p>
+          </div>
+
+     </div>
 </section>
 
 {% endblock content %}
