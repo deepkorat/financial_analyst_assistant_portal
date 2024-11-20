@@ -150,6 +150,11 @@ def gpt_dashboard():
 
 nltk.download('punkt')
 
+
+
+
+############# PLEASE COMMENT OUT THIS MODEL TO RUN TFIDF MODEL #########################
+
 def read_pdf(path: str) -> str:
      '''
      This function take path and extract texts from Annual Report
@@ -167,9 +172,6 @@ def read_pdf(path: str) -> str:
           print("Something is wrong in Path: ", e)
 
 document = read_pdf("uploads/tcs.pdf")
-
-
-## FOR TF IDF BASED MODEL
 sentences = nltk.sent_tokenize(document)
 vectorizer = TfidfVectorizer()
 tfidf_matrix = vectorizer.fit_transform(sentences)
@@ -179,6 +181,8 @@ def TF_IDF_answer_question(question):
     similarities = cosine_similarity(question_tfidf, tfidf_matrix)
     most_relevant_idx = similarities.argsort()[0][-1]
     return sentences[most_relevant_idx]
+############# PLEASE COMMENT OUT THIS MODEL TO RUN TFIDF MODEL #########################
+
 
 
 
@@ -193,70 +197,72 @@ trained = 0  # Flag to check if the model is trained
 
 @main.route('/ask', methods=['POST'])
 def ask_question():
-    global vector_db, chain, trained  # Access the global variables
-
     question = request.json.get('question')
+
     
-    try:
-        if trained == 0:
-            # Train the model only once
-            print("Training the model...")
+    # global vector_db, chain, trained  # Access the global variables
+    # try:
+    #     if trained == 0:
+    #         # Train the model only once
+    #         print("Training the model...")
 
-            # 1. Read PDF and extract text
-            pdf_path = "uploads/tcs.pdf"  # Replace with the actual path to the PDF
-            text = read_pdf(pdf_path)
-            if not text:
-                raise ValueError("Failed to extract text from PDF.")
+    #         # 1. Read PDF and extract text
+    #         pdf_path = "uploads/tcs.pdf"  # Replace with the actual path to the PDF
+    #         text = read_pdf(pdf_path)
+    #         if not text:
+    #             raise ValueError("Failed to extract text from PDF.")
 
-            # 2. Split text into chunks
-            docs = text_splitter(text)
-            if not docs:
-                raise ValueError("Text splitting failed.")
+    #         # 2. Split text into chunks
+    #         docs = text_splitter(text)
+    #         if not docs:
+    #             raise ValueError("Text splitting failed.")
 
-            # 3. Get embeddings
-            embeddings_model = embeddings()
-            if not embeddings_model:
-                raise ValueError("Failed to load embeddings.")
+    #         # 3. Get embeddings
+    #         embeddings_model = embeddings()
+    #         if not embeddings_model:
+    #             raise ValueError("Failed to load embeddings.")
 
-            # 4. Create vector database
-            vector_db = docsearch(docs, embeddings_model)
-            if not vector_db:
-                raise ValueError("Failed to create FAISS vector database.")
+    #         # 4. Create vector database
+    #         vector_db = docsearch(docs, embeddings_model)
+    #         if not vector_db:
+    #             raise ValueError("Failed to create FAISS vector database.")
 
-            # 5. Create chain
-            chain = load_qa_chain(OpenAI(), chain_type="stuff")
-            if not chain:
-                raise ValueError("Failed to create OpenAI QA chain.")
+    #         # 5. Create chain
+    #         chain = load_qa_chain(OpenAI(), chain_type="stuff")
+    #         if not chain:
+    #             raise ValueError("Failed to create OpenAI QA chain.")
 
-            # Mark as trained
-            trained = 1
-            print("Model trained successfully!")
+    #         # Mark as trained
+    #         trained = 1
+    #         print("Model trained successfully!")
 
-        # 6. Answer the question using the trained model
-        print("Answering the user's question...")
-        related_docs = vector_db.similarity_search(question)
-        if not related_docs:
-            raise ValueError("No relevant documents found for the query.")
+    #     # 6. Answer the question using the trained model
+    #     print("Answering the user's question...")
+    #     related_docs = vector_db.similarity_search(question)
+    #     if not related_docs:
+    #         raise ValueError("No relevant documents found for the query.")
 
-        answer = chain.run(input_documents=related_docs, question=question)
-        print("Answer:", answer)
+    #     answer = chain.run(input_documents=related_docs, question=question)
+    #     print("Answer:", answer)
+        
+    #     response_data = {"message": "Data received successfully", "response": answer}
+    #     return jsonify(response_data)
 
-        return jsonify({"answer": answer})
 
-    except Exception as e:
-        print("An error occurred:", e)
-        return jsonify({"error": str(e)}), 500
+    # except Exception as e:
+    #     print("An error occurred:", e)
+    #     return jsonify({"error": str(e)}), 500
 
 
 
     if not question:
         return jsonify({'error': 'No question provided'}), 400
-    # answer = TF_IDF_answer_question(question)
+    
+    ################ COMMENT OUT/IN BELOW 1 LINE FOR TFIDF MODEL WORKING #####################
+    answer = TF_IDF_answer_question(question)
 
     response_data = {"message": "Data received successfully", "response": answer}
     return jsonify(response_data)
-    # return jsonify({'question': question, 'answer': answer})
-
 
 
 
