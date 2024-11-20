@@ -20,12 +20,14 @@ from langchain.text_splitter import CharacterTextSplitter, RecursiveCharacterTex
 from langchain_community.vectorstores import ElasticVectorSearch, Pinecone, Weaviate, FAISS
 from langchain_community.vectorstores import Chroma
 from langchain.chains.question_answering import load_qa_chain
+from langchain.embeddings import OpenAIEmbeddings
+from langchain_community.llms import OpenAI
 from dotenv import load_dotenv
+
 
 load_dotenv("config.env")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-# from config import OPENAI_API_KEY
 #### OPEN AI MODEL LIBRARES END #####
 
 
@@ -130,16 +132,6 @@ def upload():
 
         file_path = os.path.join('uploads', file.filename)
         file.save(file_path)
-
-        # 1. Read PDF and extract text
-        # text = read_pdf(file_path)
-
-        # # 2. Split text into chunks
-        # docs = text_splitter(text)
-        
-        # # 3. Create embeddings using SentenceTransformer
-        # model = embeddings()
-        # print(model)
     
         return render_template('dashboard.html', filename = file.filename )
 
@@ -154,11 +146,6 @@ def ai_assist():
 @main.route('/gpt_dashboard')
 def gpt_dashboard():
     return render_template('gpt_dashboard.html')
-
-@main.route('/dashboard2')
-def dashboard2():
-    return render_template('dashboard2.html')
-
 
 
 nltk.download('punkt')
@@ -195,12 +182,76 @@ def TF_IDF_answer_question(question):
 
 
 
+
+
+##### OPEN AI ######
+
+# Global variables to store trained components
+vector_db = None
+chain = None
+trained = 0  # Flag to check if the model is trained
+
 @main.route('/ask', methods=['POST'])
 def ask_question():
+    global vector_db, chain, trained  # Access the global variables
+
     question = request.json.get('question')
+    
+    try:
+        if trained == 0:
+            # Train the model only once
+            print("Training the model...")
+
+            # 1. Read PDF and extract text
+            pdf_path = "uploads/tcs.pdf"  # Replace with the actual path to the PDF
+            text = read_pdf(pdf_path)
+            if not text:
+                raise ValueError("Failed to extract text from PDF.")
+
+            # 2. Split text into chunks
+            docs = text_splitter(text)
+            if not docs:
+                raise ValueError("Text splitting failed.")
+
+            # 3. Get embeddings
+            embeddings_model = embeddings()
+            if not embeddings_model:
+                raise ValueError("Failed to load embeddings.")
+
+            # 4. Create vector database
+            vector_db = docsearch(docs, embeddings_model)
+            if not vector_db:
+                raise ValueError("Failed to create FAISS vector database.")
+
+            # 5. Create chain
+            chain = load_qa_chain(OpenAI(), chain_type="stuff")
+            if not chain:
+                raise ValueError("Failed to create OpenAI QA chain.")
+
+            # Mark as trained
+            trained = 1
+            print("Model trained successfully!")
+
+        # 6. Answer the question using the trained model
+        print("Answering the user's question...")
+        related_docs = vector_db.similarity_search(question)
+        if not related_docs:
+            raise ValueError("No relevant documents found for the query.")
+
+        answer = chain.run(input_documents=related_docs, question=question)
+        print("Answer:", answer)
+
+        return jsonify({"answer": answer})
+
+    except Exception as e:
+        print("An error occurred:", e)
+        return jsonify({"error": str(e)}), 500
+
+
+
     if not question:
         return jsonify({'error': 'No question provided'}), 400
-    answer = TF_IDF_answer_question(question)
+    # answer = TF_IDF_answer_question(question)
 
     response_data = {"message": "Data received successfully", "response": answer}
     return jsonify(response_data)
