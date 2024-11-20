@@ -14,19 +14,19 @@ from app.utils.chat_model_SentenceTransformer import final_call
 
 
 ##### OPEN AI MODEL LIBRARIES START######
-import os
-from PyPDF2 import PdfReader
-from langchain.text_splitter import CharacterTextSplitter, RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import ElasticVectorSearch, Pinecone, Weaviate, FAISS
-from langchain_community.vectorstores import Chroma
-from langchain.chains.question_answering import load_qa_chain
-from langchain.embeddings import OpenAIEmbeddings
-from langchain_community.llms import OpenAI
-from dotenv import load_dotenv
+# import os
+# from PyPDF2 import PdfReader
+# from langchain.text_splitter import CharacterTextSplitter, RecursiveCharacterTextSplitter
+# from langchain_community.vectorstores import ElasticVectorSearch, Pinecone, Weaviate, FAISS
+# from langchain_community.vectorstores import Chroma
+# from langchain.chains.question_answering import load_qa_chain
+# from langchain.embeddings import OpenAIEmbeddings
+# from langchain_community.llms import OpenAI
+# from dotenv import load_dotenv
 
 
-load_dotenv("config.env")
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+# load_dotenv("config.env")
+# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 #### OPEN AI MODEL LIBRARES END #####
 
@@ -38,7 +38,7 @@ main = Blueprint('main', __name__)
 
 
 ###### OPEN AI MODEL FUNCTIONS START ######
-os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
+# os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 def read_pdf(path: str) -> str:
      '''
@@ -62,7 +62,9 @@ def text_splitter(text: str)->list:
      Function returns Docs as list.  
      '''
      try:
-          text_splitter = RecursiveCharacterTextSplitter(chunk_size = 512, chunk_overlap  = 32, length_function = len,)
+          text_splitter = RecursiveCharacterTextSplitter(chunk_size = 512, 
+                                                         chunk_overlap  = 32, 
+                                                         length_function = len,)
           docs = text_splitter.split_text(text)
           return docs
      except Exception as e:
@@ -77,7 +79,8 @@ def embeddings():
           
 def docsearch(docs, embeddings):
      '''
-     This function proceed to create a vector database (our knowledge base) using the FAISS library and the OpenAI embeddings.
+     This function proceed to create a vector database (our knowledge base) 
+     using the FAISS library and the OpenAI embeddings.
      It takes two arguments --> 1. Docs,  2. embeddings
      ''' 
      try:
@@ -199,7 +202,6 @@ trained = 0  # Flag to check if the model is trained
 def ask_question():
     question = request.json.get('question')
 
-    
     # global vector_db, chain, trained  # Access the global variables
     # try:
     #     if trained == 0:
