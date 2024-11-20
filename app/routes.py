@@ -19,7 +19,6 @@ main = Blueprint('main', __name__)
 def home():
     return render_template('index.html')
 
-
 @main.route('/upload_page')
 def upload_page():
     return render_template('base.html')
@@ -36,7 +35,6 @@ def upload():
 
         file_path = os.path.join('uploads', file.filename)
         file.save(file_path)
-
 
         # 1. Read PDF and extract text
         # text = read_pdf(file_path)
@@ -66,25 +64,6 @@ def gpt_dashboard():
 def dashboard2():
     return render_template('dashboard2.html')
 
-
-
-    
-# @main.route('/ask', methods=['POST'])
-# def ask_question():
-#     # Get the question from the request (sent via JavaScript)
-#     question = request.json.get('question')
-    
-#     # # Example simple model logic for answering
-#     # chain, docs = final_call()
-#     # answer = question_answer(chain, query, docs)
-#     # # response = "this is my flask answer."
-#     # response = answer
-#     response = "This is my flask answer."
-   
-#     # Send the response back to JavaScript as JSON
-#     response_data = {"message": "Data received successfully", "response": response}
-
-#     return jsonify(response_data)
 
 
 nltk.download('punkt')
@@ -135,6 +114,4 @@ def ask_question():
 
 
 
-@main.route('/news')
-def news():
-    return "Company-specific news will appear here."
+
