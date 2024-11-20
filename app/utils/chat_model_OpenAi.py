@@ -1,5 +1,5 @@
 # NLP and deep learning models for Q&A
-
+import sys
 import os
 from PyPDF2 import PdfReader
 
@@ -87,12 +87,47 @@ def question_answer(chain, query, docs):
      chain.run(input_documents=docs, question=query)
 
 
+
+
 # Usage
 if __name__ == "__main__":
-    # 1. Read PDF and extract text
-    text = read_pdf("uploads/tcs.pdf")
+    try:
+        # 1. Read PDF and extract text
+        pdf_path = "uploads/tcs.pdf"  # Replace with the actual path to the PDF
+        text = read_pdf(pdf_path)
+        if not text:
+            raise ValueError("Failed to extract text from PDF.")
 
-    # 2. Split text into chunks
-    docs = text_splitter(text)
-    print(docs[0])
+        # 2. Split text into chunks
+        docs = text_splitter(text)
+        if not docs:
+            raise ValueError("Text splitting failed.")
+
+        # 3. Get embeddings
+        embeddings_model = embeddings()
+        if not embeddings_model:
+            raise ValueError("Failed to load embeddings.")
+
+        # 4. Create vector database
+        vector_db = docsearch(docs, embeddings_model)
+        if not vector_db:
+            raise ValueError("Failed to create FAISS vector database.")
+
+        # 5. Create chain
+        chain = load_qa_chain(OpenAI(), chain_type="stuff")
+        if not chain:
+            raise ValueError("Failed to create OpenAI QA chain.")
+
+        # 6. Ask question and get answer
+        user_query = "Which company's annual report is it?"
+        related_docs = vector_db.similarity_search(user_query)
+        if not related_docs:
+            raise ValueError("No relevant documents found for the query.")
+
+        answer = chain.run(input_documents=related_docs, question=user_query)
+        print("Answer:", answer)
+
+    except Exception as e:
+        print("An error occurred:", e)
+
 
